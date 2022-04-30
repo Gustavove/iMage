@@ -5,7 +5,7 @@ c = conn.cursor()
 
 c.execute('''
           CREATE TABLE IF NOT EXISTS partida
-          ([codigo] INTEGER KEY)
+          ([codigo] INTEGER KEY, [ronda_actual] INTEGER, [rondas_totales] INTEGER)
           ''')
 
 

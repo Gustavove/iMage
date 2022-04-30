@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {
+
+    private string nickname;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +22,34 @@ public class SceneManagerScript : MonoBehaviour
     
     public void LoadScene(string sceneName){
     	SceneManager.LoadScene(sceneName);
+    }
+
+    public void CreateGame()
+    {
+        if (nickname != null)
+        {
+            SceneManager.LoadScene("CreateGame");
+        }
+    }
+
+    public void JoinGame()
+    {
+        if (nickname != null)
+        {
+            SceneManager.LoadScene("JoinGame");
+        }
+    }
+
+    public void SearchGame()
+    {
+        if (nickname != null)
+        {
+            SceneManager.LoadScene("Round");
+        }
+    }
+
+    public void ReadStringInput(string s)
+    {
+        nickname=s;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameControllerScript : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class GameControllerScript : MonoBehaviour
     string player1nick;
     string player2nick;
 
+    bool p2Joined = false;
+    bool timeUp = false;
+
+    private int code;
+
     int player1points;
     int player2points;
 
@@ -18,16 +24,41 @@ public class GameControllerScript : MonoBehaviour
 
     void StartGame()
     {
-        player1points = 0;
-        player2points = 0;
-        player1TotalPoints = 0;
-        player2TotalPoints = 0;
+        if(!p2Joined && timeUp)
+        {
+            player1points = 0;
+            player2points = 0;
+            player1TotalPoints = 0;
+            player2TotalPoints = 0;
+            //TODO
+        }
+    }
+
+    public void SendTimesUp()
+    {
+        timeUp = true;
     }
 
     void StartRound()
     {
         player1points = 0;
         player2points = 0;
+        //TODO
+    }
+
+    public void GetCodeInput(string s)
+    {
+        int.TryParse(s, out code);
+        Debug.Log(code);
+    }
+
+    public void JoinGame()
+    {
+        if (code != 0)
+        {
+
+        }
+        //TODO
     }
 
     void EndRound()
@@ -36,6 +67,7 @@ public class GameControllerScript : MonoBehaviour
         Debug.Log(player2nick + "(P2): " + player2points);
         player1TotalPoints += player1points;
         player2TotalPoints += player2points;
+        //TODO
     }
 
     public void SetRounds(int n)

@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 111932774}
   - component: {fileID: 111932775}
+  - component: {fileID: 111932776}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -165,6 +166,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5db234b5d3f23c4c959288342e50562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &111932776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111932773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fd4ba88afa6c34d95bc93b99840bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &346956348
@@ -459,9 +472,9 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 111932775}
-        m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: ReadStringInput
+      - m_Target: {fileID: 111932776}
+        m_TargetAssemblyTypeName: GameControllerScript, Assembly-CSharp
+        m_MethodName: GetCodeInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -630,8 +643,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 39
+  m_fontSizeBase: 39
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1047,9 +1060,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1417320222}
-        m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: SearchGame
+      - m_Target: {fileID: 111932776}
+        m_TargetAssemblyTypeName: GameControllerScript, Assembly-CSharp
+        m_MethodName: JoinGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -40,14 +40,6 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
-    public void SearchGame()
-    {
-        if (nickname != null)
-        {
-            SceneManager.LoadScene("Round");
-        }
-    }
-
     public void ReadStringInput(string s)
     {
         nickname=s;

@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Start.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/CreateGame.unity
+    guid: 19f3e9f92b9411d42a25e0d19112ea88
+  - enabled: 1
+    path: Assets/Scenes/JoinGame.unity
+    guid: bc1604b553e61fa4b905923996e9823e
+  - enabled: 1
+    path: Assets/Scenes/Round.unity
+    guid: 15e9d2fada42b584b9c6d3ebf3d32fcb
+  - enabled: 1
+    path: Assets/Scenes/RoundScores.unity
+    guid: 3b9e6a2945b99fe4bab42360b1e46662
+  - enabled: 1
+    path: Assets/Scenes/GameScore.unity
+    guid: 3ce646ccf56c85044ba2a9778c26113f
   m_configObjects: {}

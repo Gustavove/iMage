@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class BigTimerController : MonoBehaviour
 {
     float currentTime = 0f;
-    float startingTime = 10f;
+    float startingTime = 150f;
     bool counting = true;
 
     int code;

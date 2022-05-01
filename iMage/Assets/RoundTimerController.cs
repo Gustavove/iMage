@@ -7,7 +7,7 @@ public class RoundTimerController : MonoBehaviour
 {
     float currentTime = 0f;
     float startingTime = 10f;
-    bool counting = true;
+    bool counting = false;
 
     public TextMeshProUGUI timerText;
 
@@ -29,6 +29,11 @@ public class RoundTimerController : MonoBehaviour
             }
         }
         
+    }
+
+    public void StartTimer()
+    {
+        counting = true;
     }
 
     void TimesUp()

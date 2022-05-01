@@ -19,20 +19,20 @@ def closeBD(conn):
         conn.close()
 
 def consultar_información_partida(conn, codigo_partida):
-    query = "SELECT * FROM partida p"
+    query = "SELECT * FROM partida p where codigo = ?"
     c = conn.cursor()
     tofilter = []
     tofilter.append(codigo_partida)
     result = c.execute(query, tofilter).fetchone()[0]
     return result
 
-def nueva_partida (conn, rondas_totales):
+def nueva_partida (conn):
     c = conn.cursor()
     codigo = random.randint(100000, 999999)
     try:
-        nueva_partida = (codigo, 0, rondas_totales)
-        query = '''INSERT INTO partida (codigo, ronda_actual, rondas_actuales) 
-        VALUES (?,?,?)'''
+        nueva_partida = (codigo)
+        query = '''INSERT INTO partida (codigo) 
+        VALUES (?)'''
         c.execute(query, nueva_partida)
         conn.commit()
 
@@ -54,13 +54,55 @@ def nuevo_jugador(conn, nick, id_partida):
         print(e)
 
 def obtener_puntuaciones_totales_partida(conn, id_partida):
+    query = ''' SELECT j.nick, j.puntos FROM jugador j WHERE j.partida = ?'''
+    c = conn.cursor()
+    tofilter = []
+    tofilter.append(id_partida)
+    result = c.execute(query, tofilter).fetchall()
+
+    return result
+
+def insertar_imagen_partida(conn, id_imagen, url, codigo_partida):
     c = conn.cursor()
     try:
-        datos = (id_partida)
-        query = ''' SELECT j.nick, j.puntos FROM jugador j WHERE j.partida = ?'''
-        c.execute(query, datos)
+        nueva_imagen = (id_imagen, url, codigo_partida)
+        query = '''INSERT INTO imagen (id, url, partida) VALUES (?,?,?)'''
+        c.execute(query, nueva_imagen)
         conn.commit()
 
     except Error as e:
         print(e)
+
+def acabar_partida(conn, codigo_partida):
+    c = conn.cursor()
+    try:
+        partida = (codigo_partida)
+        query = '''DELETE FROM partida WHERE codigo = ?'''
+        c.execute(query, partida)
+        conn.commit()
+
+    except Error as e:
+        print(e)
+
+def obtener_score_jugador(conn, nick):
+    query = ''' SELECT j.puntos FROM jugador j WHERE j.nick = ?'''
+    c = conn.cursor()
+    tofilter = []
+    tofilter.append(nick)
+    result = c.execute(query, tofilter).fetchall()
+
+def sumar_score(conn, nick, score):
+
+    modificadores = (score, nick)
+
+    try:
+        query= ''' UPDATE jugador
+                      SET puntos = ? ,
+                      WHERE nombre = ?'''
+        c = conn.cursor()
+        c.execute(query, modificadores)
+        conn.commit()
+    except Error as e:
+        print(e)
+
 

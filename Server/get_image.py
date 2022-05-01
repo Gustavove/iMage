@@ -15,9 +15,11 @@ print(photo.id, photo.link_download)
 
 ### OBTENER TAGS DE IMMAGA
 
-IMAGA_URL = "https://api.imagga.com/v2/tags"
+
 UNSPLASH_URL = ""
 
+
+IMAGA_URL = "https://api.imagga.com/v2/tags"
 querystring = {"image_url":photo.link_download,"version":"2"}
 
 headers = {

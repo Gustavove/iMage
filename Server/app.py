@@ -7,6 +7,7 @@ import json
 import random
 from pyunsplash import PyUnsplash
 
+
 def obtener_score(palabras, tags):
     tags = tags.get('result')
     tags = tags.get('tags')
@@ -21,7 +22,9 @@ def obtener_score(palabras, tags):
             acertadas.append(tagname.get('en'))
     return (score, acertadas)
 
+
 app = Flask(__name__)
+
 
 @app.route('/crea_partida', methods=['POST'])
 def crea_partida():
@@ -29,7 +32,8 @@ def crea_partida():
     conn = consultasBD.connectDB()
 
     codigo = consultasBD.nueva_partida(conn)
-    consultasBD.nueva_jugador(conn, nick, codigo)
+
+    consultasBD.nuevo_jugador(conn, nick, codigo)
 
     consultasBD.closeBD(conn)
 
@@ -38,23 +42,25 @@ def crea_partida():
 
     return jsonify(result)
 
+
 @app.route('/unir_jugadores', methods=['POST'])
 def unir_jugadores():
     nick = request.form["nick"]
     codigo_partida = request.form["codigo_partida"]
     conn = consultasBD.connectDB()
 
-    consultasBD.nueva_jugador(conn, nick, codigo_partida)
+    consultasBD.nuevo_jugador(conn, nick, codigo_partida)
 
     consultasBD.closeBD(conn)
 
     resp = jsonify(success=True)
     return resp
 
+
 @app.route('/obtener_puntuacion_total', methods=['GET'])
 def obtener_puntuacion_total():
     query_parameters = request.args
-    codigo_partida= query_parameters.get('codigo_partida')
+    codigo_partida = query_parameters.get('codigo_partida')
     conn = consultasBD.connectDB()
 
     bd_result = consultasBD.obtener_puntuaciones_totales_partida(conn, codigo_partida)
@@ -68,8 +74,10 @@ def obtener_puntuacion_total():
 
     return jsonify(result)
 
+
 @app.route('/obtener_imagen', methods=['GET'])
 def obtener_imagen():
+    conn = consultasBD.connectDB()
     query_parameters = request.args
     codigo_partida = query_parameters.get('codigo_partida')
 
@@ -87,15 +95,16 @@ def obtener_imagen():
 
     result = []
     result.append({"id_foto": photo.id, "url": photo.link_download})
-    return result
+    return jsonify(result)
 
-@app.route('/descricion_jugador', methods=['POST'])
-def obtener_score():
+
+@app.route('/descripcion_jugador', methods=['POST'])
+def calculo_ronda():
     nick = request.form["nick"]
     codigo_partida = request.form["codigo_partida"]
     url_imagen = request.form["url_imagen"]
     descripcion = request.form["descripcion"]
-
+    descripcion = descripcion.split(',')
     IMAGA_URL = "https://api.imagga.com/v2/tags"
     querystring = {"image_url": url_imagen, "version": "2"}
 
@@ -106,27 +115,31 @@ def obtener_score():
 
     response = requests.request("GET", IMAGA_URL, headers=headers, params=querystring)
 
+    print(response.json())
+
     score = obtener_score(descripcion, response.json())
 
-
-    #Obtener score actual jugador
+    # Obtener score actual jugador
     conn = consultasBD.connectDB()
 
     puntos_totales = 0
     bd_result = consultasBD.obtener_score_jugador(conn, nick)
 
-    #Sumar actual score con el nuevo
-    for i in bd_result:
-        puntos_totales = i[0] + score
+    # Sumar actual score con el nuevo
 
-    #Insertar nuevos datos
-    consultasBD.sumar_score(conn, nick, score)
+    i = int(bd_result[0][0])
+    puntos_totales = i + score[0]
+
+    print("puntos totales: ", puntos_totales)
+    # #Insertar nuevos datos
+    consultasBD.sumar_score(conn, nick, score[0])
 
     consultasBD.closeBD(conn)
 
     result = []
     result.append({"Score": score})
-    return result
+    return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

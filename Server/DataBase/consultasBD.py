@@ -104,5 +104,3 @@ def sumar_score(conn, nick, score):
         conn.commit()
     except Error as e:
         print(e)
-
-

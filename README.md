@@ -14,7 +14,7 @@ The app that we have created is a functional game to play in pairs. The main of 
 
 ## Data base design
 
-[![base-de-datos.jpg](https://i.postimg.cc/D0mFt5f1/base-de-datos.jpg)](https://postimg.cc/0KgLSYwN)
+[![base-de-datos.jpg](https://i.postimg.cc/P5BhVM7Y/base-de-datos.jpg)](https://postimg.cc/QFkRHchd)
 
 ## Technologies
 

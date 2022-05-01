@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
 
 public class CommunicationController : MonoBehaviour
 {
@@ -35,6 +36,33 @@ public class CommunicationController : MonoBehaviour
             myTexture.wrapMode = TextureWrapMode.Clamp;
             roundImage.texture = myTexture;
             this.SendMessage("StartTimer");
+        }
+    }
+
+
+    IEnumerator PostData_Coroutine(string n)
+    {
+        string uri = "http://localhost:5000/crea_partida";
+        WWWForm form = new WWWForm();
+        form.AddField("nick",n);
+        using (UnityWebRequest request = UnityWebRequest.Post(uri, form))
+        {
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                Debug.Log(request.error);
+            else
+            {
+                string s = request.downloadHandler.text;
+                int x = 0;
+                char[] ch = new char[s.Length];
+                for (int i = 7; i < s.Length; i++)
+                {
+                    ch[x] = s[i];
+                    ++x;
+                }
+                Debug.Log(s);
+            }
+                
         }
     }
 }

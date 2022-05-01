@@ -28,6 +28,7 @@ public class SceneManagerScript : MonoBehaviour
     {
         if (nickname != null)
         {
+            gameObject.SendMessage("PostData_Coroutine", nickname);
             SceneManager.LoadScene("CreateGame");
         }
     }

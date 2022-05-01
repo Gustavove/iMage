@@ -32,6 +32,7 @@ public class CommunicationController : MonoBehaviour
         else
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            myTexture.wrapMode = TextureWrapMode.Clamp;
             roundImage.texture = myTexture;
             this.SendMessage("StartTimer");
         }
